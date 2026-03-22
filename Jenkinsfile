@@ -24,7 +24,7 @@ pipeline {
         }
         stage('Code Quality') {
             steps {
-                withSonarQubeEnv('SonarCloud') {
+                withSonarQubeEnv('SonarQube') {
                     bat 'mvn sonar:sonar -Dsonar.projectKey=YunisBarudi_spring-petclinic -Dsonar.organization=yunisbarudi'
                 }
             }
