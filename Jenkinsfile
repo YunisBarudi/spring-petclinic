@@ -14,29 +14,29 @@ pipeline {
         }
         stage('Build') {
             steps {
-                sh 'mvn clean compile'
+                bat 'mvn clean compile'
             }
         }
         stage('Test') {
             steps {
-                sh 'mvn test'
+                bat 'mvn test'
             }
         }
         stage('Code Quality') {
             steps {
                 withSonarQubeEnv('SonarCloud') {
-                    sh 'mvn sonar:sonar'
+                    bat 'mvn sonar:sonar -Dsonar.projectKey=YunisBarudi_spring-petclinic -Dsonar.organization=yunisbarudi'
                 }
             }
         }
         stage('Package') {
             steps {
-                sh 'mvn package -DskipTests'
+                bat 'mvn package -DskipTests'
             }
         }
         stage('Deploy') {
             steps {
-                sh 'java -jar target/*.jar &'
+                bat 'start /B java -jar target\\spring-petclinic-*.jar'
             }
         }
     }
