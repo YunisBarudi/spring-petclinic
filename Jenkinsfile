@@ -44,10 +44,10 @@ pipeline {
 
     post {
         success {
-            mail to: 'your@email.com', subject: 'Build SUCCESS', body: 'Pipeline passed!'
+            mail to: 'unis1barudi@gmail.com', subject: 'Build SUCCESS', body: 'Pipeline passed!'
         }
         failure {
-            mail to: 'your@email.com', subject: 'Build FAILED', body: 'Pipeline failed!'
+            mail to: 'unis1barudi@gmail.com', subject: 'Build FAILED', body: 'Pipeline failed!'
         }
     }
 }
