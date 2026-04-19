@@ -45,9 +45,16 @@ pipeline {
                 }
             }
         }
-        stage('Deploy') {
+        stage('Deploy to EC2 (Ansible)') {
             steps {
-                bat 'start /B java -jar target\\spring-petclinic-*.jar'
+                bat 'wsl -d Ubuntu -e bash -c "cd /mnt/c/Users/User/Desktop/cloud/ansible && ansible-playbook -i inventory.ini playbook.yml"'
+            }
+        }
+        stage('Deploy to Kubernetes') {
+            steps {
+                bat "kubectl apply -f kubernetes\\deployment.yaml -f kubernetes\\service.yaml"
+                bat "kubectl set image deployment/spring-petclinic spring-petclinic=yunis111/spring-petclinic:%BUILD_NUMBER%"
+                bat "kubectl rollout status deployment/spring-petclinic --timeout=120s"
             }
         }
     }
