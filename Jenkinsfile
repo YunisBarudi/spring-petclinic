@@ -52,9 +52,10 @@ pipeline {
         }
         stage('Deploy to Kubernetes') {
             steps {
+                bat "minikube image load yunis111/spring-petclinic:%BUILD_NUMBER%"
                 bat "kubectl apply -f kubernetes\\deployment.yaml -f kubernetes\\service.yaml"
                 bat "kubectl set image deployment/spring-petclinic spring-petclinic=yunis111/spring-petclinic:%BUILD_NUMBER%"
-                bat "kubectl rollout status deployment/spring-petclinic --timeout=120s"
+                bat "kubectl rollout status deployment/spring-petclinic --timeout=300s"
             }
         }
     }
